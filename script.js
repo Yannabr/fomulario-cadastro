@@ -26,14 +26,24 @@ function validarCampo(input, funcaoValidadora) {
         msgErro.textContent = '';
     }
 }
-
 // Validação Nome
 function validarNome(valor) {
-    if (!valor.trim()) return { valido: false, mensagem: '⚠️ Nome é obrigatório' };
-    if (valor.length < 3) return { valido: false, mensagem: '⚠️ Mínimo 3 caracteres' };
+    const regex = /^[A-Za-zÀ-ÿ\s]+$/;
+
+    if (!valor.trim()) {
+        return { valido: false, mensagem: '⚠️ Nome é obrigatório' };
+    }
+
+    if (valor.length < 3) {
+        return { valido: false, mensagem: '⚠️ Mínimo 3 caracteres' };
+    }
+
+    if (!regex.test(valor)) {
+        return { valido: false, mensagem: '⚠️ Nome não pode conter números ou símbolos' };
+    }
+
     return { valido: true };
 }
-
 // Validação Email
 function validarEmail(valor) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
